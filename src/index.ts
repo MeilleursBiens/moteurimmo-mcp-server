@@ -25,7 +25,7 @@ class MoteurImmoServer {
         this.server = new Server(
             {
                 name: 'moteurimmo-mcp-server',
-                version: '0.1.0',
+                version: '0.1.5',
             },
             {
                 capabilities: {
@@ -374,7 +374,8 @@ class MoteurImmoServer {
                     const response = await this.axiosInstance.post<MoteurImmoAPIResponse>(
                         '/ads',
                         {
-                            token: process.env.MOTEUR_IMMO_API_KEY,
+                            apiKey: process.env.MOTEUR_IMMO_API_TOKEN,
+                            token: process.env.MOTEUR_IMMO_API_TOKEN,
                             ...args
                         },
                         {
@@ -411,7 +412,8 @@ class MoteurImmoServer {
                         '/ad/' + args?.id,
                         {
                             headers: {
-                                apiKey: process.env.MOTEUR_IMMO_API_KEY
+                                apiKey: process.env.MOTEUR_IMMO_API_TOKEN,
+                                token: process.env.MOTEUR_IMMO_API_TOKEN
                             },
                             validateStatus: () => true
                         },
@@ -499,4 +501,7 @@ class MoteurImmoServer {
 }
 
 const server = new MoteurImmoServer();
-server.run().catch(console.error);
+server.run().catch(err => {
+    console.error("Fatal error running server:", err);
+    process.exit(1);
+});
