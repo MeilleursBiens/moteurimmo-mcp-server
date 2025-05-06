@@ -26,6 +26,7 @@ class MoteurImmoServer {
             {
                 name: 'moteurimmo-mcp-server',
                 version: '0.1.5',
+                timeout: 30000
             },
             {
                 capabilities: {
@@ -156,7 +157,7 @@ class MoteurImmoServer {
                                 default: ['professional', 'individual'],
                                 description: 'List of advertiser types, can be "professional" or "individual"',
                             },
-                            location: {
+                            locations: {
                                 type: 'array',
                                 items: {
                                     type: 'object',
@@ -165,7 +166,7 @@ class MoteurImmoServer {
                                     },
                                     required: ['inseeCode']
                                 },
-                                description: 'List of search zones'
+                                description: 'List of search zones with INSEE code, exemple: [{"inseeCode": "75056"}]',
                             },
                             radius: {
                                 type: 'number',
