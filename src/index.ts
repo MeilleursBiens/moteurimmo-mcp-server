@@ -67,13 +67,13 @@ class MoteurImmoServer {
                                     enum: MoteurImmoPortals,
                                 },
                                 default: MoteurImmoPortals,
-                                description: 'List of real estate platform names to include in the search',
+                                description: 'List of real estate platform names to include in the search, can be ' + MoteurImmoPortals.map((sort) => `"${sort}"`).join(', '),
                             },
                             sortBy: {
                                 type: 'string',
                                 enum: MoteurImmoSorts,
                                 default: 'lastEventDate-desc',
-                                description: 'Sort by field (e.g. date, creationDate, price, etc.)',
+                                description: 'Sort by field, can be ' + MoteurImmoSorts.map((sort) => `"${sort}"`).join(', '),
                             },
                             creationDateBefore: {
                                 type: 'string',
@@ -134,10 +134,11 @@ class MoteurImmoServer {
                             types: {
                                 type: 'array',
                                 items: {
+                                    type: 'string',
                                     enum: ['sale', 'rental']
                                 },
                                 default: ['sale', 'rental'],
-                                description: 'Sales or rentals type',
+                                description: 'Sales or rentals type, can be "sale" or "rental"',
                             },
                             categories: {
                                 type: 'array',
@@ -145,7 +146,7 @@ class MoteurImmoServer {
                                     enum: MoteurImmoCategories
                                 },
                                 default: MoteurImmoCategories,
-                                description: 'Property categories',
+                                description: 'Property categories, can be ' + MoteurImmoCategories.map((category) => `"${category}"`).join(', '),
                             },
                             publisherTypes: {
                                 type: 'array',
@@ -153,7 +154,7 @@ class MoteurImmoServer {
                                     enum: ['professional', 'individual']
                                 },
                                 default: ['professional', 'individual'],
-                                description: 'List of advertiser types',
+                                description: 'List of advertiser types, can be "professional" or "individual"',
                             },
                             location: {
                                 type: 'array',
