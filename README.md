@@ -21,7 +21,7 @@ Utilisation direct de l'API MoteurImmo avec un serveur MCP.
             "command": "npx",
             "args": ["-y", "moteurimmo-mcp-server"],
             "env": {
-              "MOTEUR_IMMO_API_KEY": "YOUR-API-KEY"
+              "MOTEUR_IMMO_API_TOKEN": "YOUR-API-KEY"
             }
         }
     }

@@ -71,9 +71,7 @@ class MoteurImmoServer {
                             },
                             sortBy: {
                                 type: 'string',
-                                items: {
-                                    enum: MoteurImmoSorts
-                                },
+                                enum: MoteurImmoSorts,
                                 default: 'lastEventDate-desc',
                                 description: 'Sort by field (e.g. date, creationDate, price, etc.)',
                             },
@@ -270,30 +268,22 @@ class MoteurImmoServer {
                             },
                             energyGradeMin: {
                                 type: 'string',
-                                items: {
-                                    enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'V']
-                                },
+                                enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'V'],
                                 description: 'DPE energy grade min (cannot be used with land category)',
                             },
                             energyGradeMax: {
                                 type: 'string',
-                                items: {
-                                    enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'V']
-                                },
+                                enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'V'],
                                 description: 'DPE energy grade max (cannot be used with land category)',
                             },
                             gasGradeMin: {
                                 type: 'string',
-                                items: {
-                                    enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'V']
-                                },
+                                enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'V'],
                                 description: 'Gas grade min (cannot be used with land category)',
                             },
                             gasGradeMax: {
                                 type: 'string',
-                                items: {
-                                    enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'V']
-                                },
+                                enum: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'V'],
                                 description: 'Gas grade max (cannot be used with land category)',
                             },
                             options: {
@@ -413,7 +403,7 @@ class MoteurImmoServer {
                         {
                             headers: {
                                 apiKey: process.env.MOTEUR_IMMO_API_TOKEN,
-                                token: process.env.MOTEUR_IMMO_API_TOKEN
+                                token: process.env.MOTEUR_IMMO_API_TOKEN,
                             },
                             validateStatus: () => true
                         },
