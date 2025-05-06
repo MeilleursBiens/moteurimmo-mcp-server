@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "main": "index.js",
   "bin": {
-    "moteurimmo-mcp": "dist/index.js"
+    "moteurimmo-mcp-server": "build/index.js"
   },
   "files": [
     "dist"
