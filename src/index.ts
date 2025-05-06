@@ -16,6 +16,12 @@ class MoteurImmoServer {
     constructor() {
         console.error('[Setup] Initializing MoteurImmo server...');
 
+        if (!process.env.MOTEUR_IMMO_API_KEY) {
+            console.error('[Warning] MOTEUR_IMMO_API_KEY environment variable is not set');
+        }
+
+        console.error('[Setup] Initializing MoteurImmo server...');
+
         this.server = new Server(
             {
                 name: 'moteurimmo-mcp-server',
@@ -476,9 +482,19 @@ class MoteurImmoServer {
     }
 
     async run() {
-        const transport = new StdioServerTransport();
-        await this.server.connect(transport);
-        console.error('MoteurImmo MCP server running on stdio');
+        try {
+            const transport = new StdioServerTransport();
+            await this.server.connect(transport);
+            console.error('[Info] MoteurImmo MCP server running on stdio');
+
+            process.on('uncaughtException', (error) => {
+                console.error('[Fatal Error] Uncaught exception:', error);
+            });
+        } catch (error) {
+            console.error('[Fatal Error] Failed to start server:', error);
+            // Attendre avant de réessayer ou de terminer
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
     }
 }
 
