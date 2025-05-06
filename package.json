@@ -1,0 +1,31 @@
+{
+  "name": "moteurimmo-mcp-server",
+  "version": "1.0.1",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "dev": "npm run build && chmod +x ./build/index.js && npx @modelcontextprotocol/inspector build/index.js",
+    "start": "node build/index.js",
+    "publish": "npm run build && npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MeilleursBiens/moteurimmo-mcp-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MeilleursBiens/moteurimmo-mcp-server/issues"
+  },
+  "homepage": "https://github.com/MeilleursBiens/moteurimmo-mcp-server#readme",
+  "description": "",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.0",
+    "axios": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.12",
+    "typescript": "^5.8.3"
+  }
+}
