@@ -1,12 +1,12 @@
 {
   "name": "moteurimmo-mcp-server",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.js",
   "bin": {
     "moteurimmo-mcp-server": "build/index.js"
   },
   "files": [
-    "dist"
+    "build"
   ],
   "scripts": {
     "build": "npx tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
