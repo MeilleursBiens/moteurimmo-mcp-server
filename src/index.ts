@@ -151,6 +151,17 @@ class MoteurImmoServer {
                                 default: ['professional', 'individual'],
                                 description: 'List of advertiser types',
                             },
+                            location: {
+                                type: 'array',
+                                items: {
+                                    type: 'object',
+                                    properties: {
+                                        inseeCode: { type: 'string', description: 'INSEE Code of the City' },
+                                    },
+                                    required: ['inseeCode']
+                                },
+                                description: 'List of search zones'
+                            },
                             radius: {
                                 type: 'number',
                                 description: 'Search radius in km',
@@ -324,12 +335,26 @@ class MoteurImmoServer {
                         required: ['id'],
                     },
                 },
+                {
+                    name: 'search_city_insee_code',
+                    description: 'Search for INSEE code of a city by name',
+                    inputSchema: {
+                        type: 'object',
+                        properties: {
+                            query: {
+                                type: 'string',
+                                description: 'The name of the city to search for',
+                            }
+                        },
+                        required: ['query'],
+                    },
+                },
             ],
         }));
 
         this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
             try {
-                if (!['search_ads', 'get_ad'].includes(request.params.name)) {
+                if (!['search_ads', 'get_ad', 'search_city_insee_code'].includes(request.params.name)) {
                     throw new McpError(
                         ErrorCode.MethodNotFound,
                         `Unknown tool: ${request.params.name}`
@@ -372,7 +397,8 @@ class MoteurImmoServer {
                             },
                         ],
                     };
-                } else {
+                }
+                if (request.params.name === 'get_ad') {
                     // get_ad
                     console.error(`[API] Fetching ad for id: ${args?.id}`);
                     const response = await this.axiosInstance.get<MoteurImmoAPIResponse>(
@@ -402,6 +428,40 @@ class MoteurImmoServer {
                         ],
                     };
                 }
+                if (request.params.name === 'search_city_insee_code') {
+                    console.error(`[API] Searching INSEE code for city: ${args?.query}`);
+                    const response = await axios.get<any>(
+                        'https://api-adresse.data.gouv.fr/search/',
+                        {
+                            params: {
+                                q: args?.query
+                            },
+                            headers: {
+                                'Accept': 'application/json'
+                            },
+                            validateStatus: () => true
+                        }
+                    );
+
+                    if (response.status !== 200) {
+                        throw new Error(`Adresse Gouv API error: ${response.statusText}`);
+                    }
+
+                    return {
+                        content: [
+                            {
+                                type: 'text',
+                                text: JSON.stringify(
+                                    response.data,
+                                    null,
+                                    2
+                                ),
+                            },
+                        ],
+                    };
+                }
+
+                throw new Error("[Error] Unknown tool");
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     console.error('[Error] Failed to fetch data:', error);

@@ -1,7 +1,13 @@
 {
   "name": "moteurimmo-mcp-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
+  "bin": {
+    "moteurimmo-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "npx tsc",
     "dev": "npm run build && chmod +x ./build/index.js && npx @modelcontextprotocol/inspector build/index.js",
